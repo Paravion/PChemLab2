@@ -39,7 +39,7 @@ k1 <- k
 summary(model)
 
 #plotting
-png("exp2_t25.png", width = 500, height = 500)
+png("plot/exp2_t25.png", width = 500, height = 500)
 
 ggplot(data = data25, aes(x=time, y=log.v))+
   geom_point()+
@@ -47,7 +47,7 @@ ggplot(data = data25, aes(x=time, y=log.v))+
   labs(title= "ln vs t(sec) [T=25]",
        x="ln",
        y="t(sec)")+
-  theme_minimal()
+  theme_gray()
 
 dev.off()
 
@@ -67,7 +67,7 @@ k2 <- k
 summary(model)
 
 #plotting
-png("exp2_t35.png", width = 500, height = 500)
+png("plot/exp2_t35.png", width = 500, height = 500)
 
 ggplot(data = data35, aes(x=time, y=log.v))+
   geom_point()+
@@ -75,7 +75,7 @@ ggplot(data = data35, aes(x=time, y=log.v))+
   labs(title= "ln vs t(sec) [T=35]",
        x="ln",
        y="t(sec)")+
-  theme_minimal()
+  theme_gray()
 
 dev.off()
 
@@ -92,3 +92,4 @@ Ea <- 8.314*25*35/(35-25)*log(k2/k1)
 print(paste0("k1 = ",k1," ","k2 = ",k2))
 print(paste0("hl1 = ",hl1," ","hl2 = ",hl2))
 print(paste0("Ea = ",Ea))
+
