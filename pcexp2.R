@@ -4,6 +4,7 @@
 #T1 = 25 degree C, T2 = 35 degree
 
 require(ggplot2)
+require(ggthemes)
 
 setwd("PChemLab2")
 
@@ -38,7 +39,7 @@ k1 <- k
 summary(model)
 
 #plotting
-png("exp2/t25.png", width = 1000, height = 1000)
+png("exp2_t25.png", width = 500, height = 500)
 
 ggplot(data = data25, aes(x=time, y=log.v))+
   geom_point()+
@@ -46,7 +47,7 @@ ggplot(data = data25, aes(x=time, y=log.v))+
   labs(title= "ln vs t(sec) [T=25]",
        x="ln",
        y="t(sec)")+
-  theme_bw()
+  theme_minimal()
 
 dev.off()
 
@@ -66,15 +67,15 @@ k2 <- k
 summary(model)
 
 #plotting
-png("exp2/t35.png", width = 1000, height = 1000)
+png("exp2_t35.png", width = 500, height = 500)
 
-ggplot(data = data25, aes(x=time, y=log.v))+
+ggplot(data = data35, aes(x=time, y=log.v))+
   geom_point()+
   geom_abline(slope = k, intercept = intc)+
   labs(title= "ln vs t(sec) [T=35]",
        x="ln",
        y="t(sec)")+
-  theme_bw()
+  theme_minimal()
 
 dev.off()
 
@@ -88,6 +89,6 @@ hl2 <- 0.693/k2
 Ea <- 8.314*25*35/(35-25)*log(k2/k1)
 
 #show the answers
-print(paste0("k1 =",k1,"k2 = ",k2))
-print(paste0("hl1 =",hl1,"hl2 = ",hl2))
-print(paste0("Ea =",Ea))
+print(paste0("k1 = ",k1," ","k2 = ",k2))
+print(paste0("hl1 = ",hl1," ","hl2 = ",hl2))
+print(paste0("Ea = ",Ea))
