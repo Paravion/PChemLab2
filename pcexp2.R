@@ -3,6 +3,10 @@
 
 #T1 = 25 degree C, T2 = 35 degree
 
+require(ggplot2)
+
+setwd("PChemLab2")
+
 #read data
 data0 <- read.csv("data/pchem2_exp2.csv")
 head(data0)
@@ -32,5 +36,4 @@ plot(x=data25$time ,
      ylab = "ln(v_inf - v_t)")
 abline(model, lwd = 2)
 k1 <- coefficients(model)["time"]
-
 
