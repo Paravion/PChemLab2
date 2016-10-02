@@ -35,6 +35,8 @@ k <- coefficients(model)["time"]
 intc <- coefficients(model)["(Intercept)"]
 k1 <- k
 
+summary(model)
+
 #plotting
 png("exp2/t25.png", width = 1000, height = 1000)
 
@@ -61,6 +63,8 @@ k <- coefficients(model)["time"]
 intc <- coefficients(model)["(Intercept)"]
 k2 <- k
 
+summary(model)
+
 #plotting
 png("exp2/t35.png", width = 1000, height = 1000)
 
@@ -83,3 +87,7 @@ hl2 <- 0.693/k2
 #Ea = R*T1*T2/(T2-T1)*ln(k2/k1)
 Ea <- 8.314*25*35/(35-25)*log(k2/k1)
 
+#show the answers
+print(paste0("k1 =",k1,"k2 = ",k2))
+print(paste0("hl1 =",hl1,"hl2 = ",hl2))
+print(paste0("Ea =",Ea))
