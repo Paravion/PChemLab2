@@ -13,27 +13,73 @@ head(data0)
 data25 <- data0[data0$temp == 25 & data0$time != 58,] #drop the point at time=58
 data35 <- data0[data0$temp == 35,]
 
+#calculate v0
+v0 <- (10.6+9.8+10.4)/3
+
 #k = ln[(v_inf - v_0)/(v_inf - v_t)] / t-t_0
-#t_0 = 0 , v_0 = 0
-#k = - ln(v_inf - v_r) / t
-#ln(v_inf - v_t) = - kt
-#k
+#t_0 = 0 , v_0 = 10.26
+#k = [ln(v_inf - v_0) - ln(v_inf - v_0)] / t
+#[ln(v_inf - v_0) - ln(v_inf - v_0)] = kt
+#k = slope
 
 #make a new data frame for T1
 v_inf <- data25[9,"naohV"]
-log.v <- log(v_inf - data25$naohV)
+log.v <- log (v_inf-v0) - log(v_inf - data25$naohV) 
 data25 <- data.frame(data25, log.v)
-plot(data25$time,data25$log.v)
+plot(data25$time,data25$log.v) #just for checking if the trend is right
 data25 <- data25[1:7,]
+
 #calulate k1 using linear modeling
 model <- lm(formula = log.v ~ time, data = data25)
+k <- coefficients(model)["time"]
+intc <- coefficients(model)["(Intercept)"]
+k1 <- k
 
-#ploting
-plot(x=data25$time ,
-     y=data25$log.v ,
-     main = "ln(v_inf - v_t) vs t" ,
-     xlab = "t (sec)",
-     ylab = "ln(v_inf - v_t)")
-abline(model, lwd = 2)
-k1 <- coefficients(model)["time"]
+#plotting
+png("exp2/t25.png", width = 1000, height = 1000)
+
+ggplot(data = data25, aes(x=time, y=log.v))+
+  geom_point()+
+  geom_abline(slope = k, intercept = intc)+
+  labs(title= "ln vs t(sec) [T=25]",
+       x="ln",
+       y="t(sec)")+
+  theme_bw()
+
+dev.off()
+
+#make a new data frame for T2
+v_inf <- data35[12,"naohV"]
+data35 <- data35[1:10,]
+log.v <- log (v_inf-v0) - log(v_inf - data35$naohV) 
+data35 <- data.frame(data35, log.v)
+plot(data35$time,data35$log.v)
+
+#calulate k2 using linear modeling
+model <- lm(formula = log.v ~ time, data = data35)
+k <- coefficients(model)["time"]
+intc <- coefficients(model)["(Intercept)"]
+k2 <- k
+
+#plotting
+png("exp2/t35.png", width = 1000, height = 1000)
+
+ggplot(data = data25, aes(x=time, y=log.v))+
+  geom_point()+
+  geom_abline(slope = k, intercept = intc)+
+  labs(title= "ln vs t(sec) [T=35]",
+       x="ln",
+       y="t(sec)")+
+  theme_bw()
+
+dev.off()
+
+#compute half-life
+#t_1/2 = 0.693/k
+hl1 <- 0.693/k1
+hl2 <- 0.693/k2
+
+#calculate Ea
+#Ea = R*T1*T2/(T2-T1)*ln(k2/k1)
+Ea <- 8.314*25*35/(35-25)*log(k2/k1)
 
