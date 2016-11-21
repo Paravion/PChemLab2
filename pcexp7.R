@@ -20,10 +20,13 @@ start <- function(a=1){
   full <- data.frame(time,intensity,A) #full = full data
 }
 
+model <- lm (full$intensity~full$time)
+
 #plot intensity to time
-ggplot(data=full, aes(x=))
+ggplot(data=full, aes(x=time,y=intensity))
 
 #plot A to time
+ggplot(data=full, aes(x=time,y=intensity))
 
 #calculate A_eq
 
