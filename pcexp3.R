@@ -43,8 +43,8 @@ dev.off()
 #dealing with data
 t35 <- data.frame(t=t35$SAMPLE+1,gt=t35$Uncomp.Cond)
 g0 <- 2.63
-t35 <- t35[2001:13974,]
-t35 <- data.frame(t=t35$t - 2000,gt=t35$gt,g0gtt=(g0 - t35$gt)/t35$t)
+t35 <- t35[4001:13974,]
+t35 <- data.frame(t=t35$t - 4000,gt=t35$gt,g0gtt=(g0 - t35$gt)/t35$t)
 plot(t35$g0gtt,t35$gt)
 
 #linear modeling
@@ -72,5 +72,8 @@ dev.off()
 k1a25 <- k1a25^(-1)
 k1a35 <- k1a35^(-1)
 
+k1a25
 gc25
+
+k1a35
 gc35
