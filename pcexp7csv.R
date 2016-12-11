@@ -26,15 +26,15 @@ for (a in 1:5){
 #calulate ln(Aeq-At)-t
 
 index <- 1:5
-aeq <- c(1.06,1.50,1.41,1.43,1.14)
+aeq <- c(0.64,0.80,0.81,0.82,0.84) #from observations
 aeq <- data.frame(index,aeq)
 
 a <- 1
 for (a in 1:5){
-  filename <- paste("a",a,"aa",".csv",sep="") 
+  filename <- paste("a",a,".csv",sep="") 
   data <- read.csv(filename)
   time <- data$time
-  lnaeq <- log(aeq$aeq[a] - data$intensity) #lnaeq = ln(Aeq-At)-t
+  lnaeq <- log(aeq$aeq[a] - full$A) #lnaeq = ln(Aeq-At)
   data <- data.frame(time,lnaeq)
   newfile <- paste("A",a,"ln",".csv",sep="")
   write.csv(data,file=newfile,row.names=FALSE)
